@@ -37,7 +37,7 @@ namespace BusTicketGoKurs
 
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Button_ExportWord_1(object sender, RoutedEventArgs e)
         {
             Word.Application word = new Word.Application();
             word.Visible = false; // Установка свойства Visible в false
@@ -75,7 +75,7 @@ namespace BusTicketGoKurs
             }
         }
 
-        private void Button_Click_3(object sender, RoutedEventArgs e)
+        private void Button_ExportExcel_1(object sender, RoutedEventArgs e)
         {
             Excel.Application excel = new Excel.Application();
             excel.Visible = false; // Установка свойства Visible в false
@@ -115,7 +115,7 @@ namespace BusTicketGoKurs
             }
         }
 
-        private void Button_Click_4(object sender, RoutedEventArgs e)
+        private void Button_ExportWord_2(object sender, RoutedEventArgs e)
         {
             Word.Application word = new Word.Application();
             word.Visible = false; // Установка свойства Visible в false
@@ -154,7 +154,7 @@ namespace BusTicketGoKurs
         }
 
 
-        private void Button_Click_5(object sender, RoutedEventArgs e)
+        private void Button_ExportExcel_2(object sender, RoutedEventArgs e)
         {
             Excel.Application excel = new Excel.Application();
             excel.Visible = false; // Установка свойства Visible в false
@@ -194,6 +194,8 @@ namespace BusTicketGoKurs
             }
 
         }
+
+  
     }
 }
 

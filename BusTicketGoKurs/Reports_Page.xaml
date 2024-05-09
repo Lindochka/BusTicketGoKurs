@@ -31,8 +31,8 @@
                 <DataGridTextColumn Header="Стоимость" Binding="{Binding Price_Ticket, Mode=OneWay}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Отчет Word" HorizontalAlignment="Left" Margin="53,215,0,0" VerticalAlignment="Top" Width="180" Click="Button_Click_2" Height="27"/>
-        <Button Content="Отчет Excel" HorizontalAlignment="Left" Margin="568,215,0,0" VerticalAlignment="Top" Width="179" Click="Button_Click_3" Height="27"/>
+        <Button Content="Отчет Word" HorizontalAlignment="Left" Margin="53,215,0,0" VerticalAlignment="Top" Width="180" Click="Button_ExportWord_1" Height="27"/>
+        <Button Content="Отчет Excel" HorizontalAlignment="Left" Margin="568,215,0,0" VerticalAlignment="Top" Width="179" Click="Button_ExportExcel_1" Height="27"/>
         
         <DataGrid x:Name="DGridUser"  Margin="53,267,53,56" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
@@ -47,8 +47,8 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Отчет Word" HorizontalAlignment="Left" Margin="53,398,0,0" VerticalAlignment="Top" Width="180" Click="Button_Click_4" Height="19"/>
-        <Button Content="Отчет Excel" HorizontalAlignment="Left" Margin="568,398,0,0" VerticalAlignment="Top" Width="179" Click="Button_Click_5" Height="19"/>
+        <Button Content="Отчет Word" HorizontalAlignment="Left" Margin="53,398,0,0" VerticalAlignment="Top" Width="180" Click="Button_ExportWord_2" Height="19"/>
+        <Button Content="Отчет Excel" HorizontalAlignment="Left" Margin="568,398,0,0" VerticalAlignment="Top" Width="179" Click="Button_ExportExcel_2" Height="19"/>
 
     </Grid>
 </Page>
