@@ -1,0 +1,50 @@
+﻿<Page x:Class="BusTicketGoKurs.TicketingPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BusTicketGoKurs"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="TicketingPage">
+
+
+
+
+<Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="200"/>
+        <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+
+
+                <Label  Content="Номер маршрута" Width="142" Grid.Column="0" Grid.Row="0"/>
+        <TextBox Text="{Binding route_ID}" x:Name="route_ID_textbox" Grid.Column="1" Grid.Row="0"/>
+        <Label  Content="Фамилия" Width="133" Grid.Column="0" Grid.Row="1"/>
+        <TextBox Text="{Binding Surname}" x:Name="SurnameTextBox" Grid.Column="1" Grid.Row="1"/>
+        <Label Content="Имя" Width="132" Grid.Column="0" Grid.Row="2"/>
+        <TextBox Text="{Binding Name}" x:Name="NameTextBox" Grid.Column="1" Grid.Row="2"/>
+        <Label Content="Отчество" Width="129" Grid.Column="0" Grid.Row="3"/>
+        <TextBox Text="{Binding Patronymic}" x:Name="PatronymicTextBox" Grid.Column="1" Grid.Row="3"/>
+        <Label Content="Дата рождения" Width="127" Grid.Column="0" Grid.Row="4"/>
+        <DatePicker Text="{Binding BurthDate}" x:Name="BurthDatePicker" Width="133" Grid.Column="1" Grid.Row="4"/>
+        <Label Content="Паспортные данные" Foreground="Black" Background="Transparent" Width="167" Grid.Column="0" Grid.Row="5"/>
+        <TextBox Text="{Binding PassportNum}" x:Name="PassportTextBox" Grid.Column="1" Grid.Row="5"/>
+             
+
+        <Button Content="Купить" Click="BuyButton_Click" Grid.ColumnSpan="2" Grid.Row="6" Name="BtnSave"  BorderBrush="#FFFFF000" Foreground="#FF817213" Background="#FFDAF0F9"/>
+
+
+
+    
+</Grid>
+</Page>

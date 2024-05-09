@@ -1,0 +1,548 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище BusTicketGoModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="City_Destination">
+          <Key>
+            <PropertyRef Name="city_ID" />
+          </Key>
+          <Property Name="city_ID" Type="nchar" MaxLength="4" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="City_Source">
+          <Key>
+            <PropertyRef Name="city_ID" />
+          </Key>
+          <Property Name="city_ID" Type="nchar" MaxLength="4" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="role_ID" />
+          </Key>
+          <Property Name="role_ID" Type="int" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Route">
+          <Key>
+            <PropertyRef Name="route_ID" />
+          </Key>
+          <Property Name="route_ID" Type="int" Nullable="false" />
+          <Property Name="Source" Type="nchar" MaxLength="4" Nullable="false" />
+          <Property Name="Destination" Type="nchar" MaxLength="4" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Departure_time" Type="time" Precision="7" Nullable="false" />
+          <Property Name="Arrival_time" Type="datetime" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Ticket">
+          <Key>
+            <PropertyRef Name="ticket_ID" />
+          </Key>
+          <Property Name="ticket_ID" Type="int" Nullable="false" />
+          <Property Name="route_ID" Type="int" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BurthDate" Type="date" Nullable="false" />
+          <Property Name="PassportNum" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="user_ID" />
+          </Key>
+          <Property Name="user_ID" Type="int" Nullable="false" />
+          <Property Name="Role" Type="int" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BurthDate" Type="date" />
+          <Property Name="PhoneNum" Type="bigint" />
+          <Property Name="PassportNum" Type="bigint" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "BusTicketGo.dbo.UserOfRoute" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="UserOfRoute">
+          <Key>
+            <PropertyRef Name="user_ID" />
+            <PropertyRef Name="route_ID" />
+          </Key>
+          <Property Name="user_ID" Type="int" Nullable="false" />
+          <Property Name="route_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "BusTicketGo.dbo.UserOfTicket" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="UserOfTicket">
+          <Key>
+            <PropertyRef Name="user_Id" />
+            <PropertyRef Name="ticket_ID" />
+          </Key>
+          <Property Name="user_Id" Type="int" Nullable="false" />
+          <Property Name="ticket_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Route_City_Destination1">
+          <End Role="City_Destination" Type="Self.City_Destination" Multiplicity="1" />
+          <End Role="Route" Type="Self.Route" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City_Destination">
+              <PropertyRef Name="city_ID" />
+            </Principal>
+            <Dependent Role="Route">
+              <PropertyRef Name="Destination" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Route_City_Source1">
+          <End Role="City_Source" Type="Self.City_Source" Multiplicity="1" />
+          <End Role="Route" Type="Self.Route" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City_Source">
+              <PropertyRef Name="city_ID" />
+            </Principal>
+            <Dependent Role="Route">
+              <PropertyRef Name="Source" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ticket_Route">
+          <End Role="Route" Type="Self.Route" Multiplicity="1" />
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Route">
+              <PropertyRef Name="route_ID" />
+            </Principal>
+            <Dependent Role="Ticket">
+              <PropertyRef Name="route_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="role_ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserOfRoute_Route">
+          <End Role="Route" Type="Self.Route" Multiplicity="1" />
+          <End Role="UserOfRoute" Type="Self.UserOfRoute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Route">
+              <PropertyRef Name="route_ID" />
+            </Principal>
+            <Dependent Role="UserOfRoute">
+              <PropertyRef Name="route_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserOfRoute_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserOfRoute" Type="Self.UserOfRoute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_ID" />
+            </Principal>
+            <Dependent Role="UserOfRoute">
+              <PropertyRef Name="user_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserOfTicket_Ticket">
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="1" />
+          <End Role="UserOfTicket" Type="Self.UserOfTicket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ticket">
+              <PropertyRef Name="ticket_ID" />
+            </Principal>
+            <Dependent Role="UserOfTicket">
+              <PropertyRef Name="ticket_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserOfTicket_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserOfTicket" Type="Self.UserOfTicket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_ID" />
+            </Principal>
+            <Dependent Role="UserOfTicket">
+              <PropertyRef Name="user_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище BusTicketGoModelContainer">
+          <EntitySet Name="City_Destination" EntityType="Self.City_Destination" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="City_Source" EntityType="Self.City_Source" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Route" EntityType="Self.Route" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ticket" EntityType="Self.Ticket" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserOfRoute" EntityType="Self.UserOfRoute" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UserOfRoute].[user_ID] AS [user_ID], 
+    [UserOfRoute].[route_ID] AS [route_ID]
+    FROM [dbo].[UserOfRoute] AS [UserOfRoute]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="UserOfTicket" EntityType="Self.UserOfTicket" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UserOfTicket].[user_Id] AS [user_Id], 
+    [UserOfTicket].[ticket_ID] AS [ticket_ID]
+    FROM [dbo].[UserOfTicket] AS [UserOfTicket]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Route_City_Destination1" Association="Self.FK_Route_City_Destination1">
+            <End Role="City_Destination" EntitySet="City_Destination" />
+            <End Role="Route" EntitySet="Route" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Route_City_Source1" Association="Self.FK_Route_City_Source1">
+            <End Role="City_Source" EntitySet="City_Source" />
+            <End Role="Route" EntitySet="Route" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ticket_Route" Association="Self.FK_Ticket_Route">
+            <End Role="Route" EntitySet="Route" />
+            <End Role="Ticket" EntitySet="Ticket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserOfRoute_Route" Association="Self.FK_UserOfRoute_Route">
+            <End Role="Route" EntitySet="Route" />
+            <End Role="UserOfRoute" EntitySet="UserOfRoute" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserOfRoute_User" Association="Self.FK_UserOfRoute_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserOfRoute" EntitySet="UserOfRoute" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserOfTicket_Ticket" Association="Self.FK_UserOfTicket_Ticket">
+            <End Role="Ticket" EntitySet="Ticket" />
+            <End Role="UserOfTicket" EntitySet="UserOfTicket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserOfTicket_User" Association="Self.FK_UserOfTicket_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserOfTicket" EntitySet="UserOfTicket" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BusTicketGoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="City_Destination">
+          <Key>
+            <PropertyRef Name="city_ID" />
+          </Key>
+          <Property Name="city_ID" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Route" Relationship="Self.FK_Route_City_Destination1" FromRole="City_Destination" ToRole="Route" />
+        </EntityType>
+        <EntityType Name="City_Source">
+          <Key>
+            <PropertyRef Name="city_ID" />
+          </Key>
+          <Property Name="city_ID" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Route" Relationship="Self.FK_Route_City_Source1" FromRole="City_Source" ToRole="Route" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="role_ID" />
+          </Key>
+          <Property Name="role_ID" Type="Int32" Nullable="false" />
+          <Property Name="Role1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Route">
+          <Key>
+            <PropertyRef Name="route_ID" />
+          </Key>
+          <Property Name="route_ID" Type="Int32" Nullable="false" />
+          <Property Name="Source" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Destination" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Departure_time" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="Arrival_time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="City_Destination" Relationship="Self.FK_Route_City_Destination1" FromRole="Route" ToRole="City_Destination" />
+          <NavigationProperty Name="City_Source" Relationship="Self.FK_Route_City_Source1" FromRole="Route" ToRole="City_Source" />
+          <NavigationProperty Name="Ticket" Relationship="Self.FK_Ticket_Route" FromRole="Route" ToRole="Ticket" />
+          <NavigationProperty Name="User" Relationship="Self.UserOfRoute" FromRole="Route" ToRole="User" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Ticket">
+          <Key>
+            <PropertyRef Name="ticket_ID" />
+          </Key>
+          <Property Name="ticket_ID" Type="Int32" Nullable="false" />
+          <Property Name="route_ID" Type="Int32" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BurthDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PassportNum" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Route" Relationship="Self.FK_Ticket_Route" FromRole="Ticket" ToRole="Route" />
+          <NavigationProperty Name="User" Relationship="Self.UserOfTicket" FromRole="Ticket" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="user_ID" />
+          </Key>
+          <Property Name="user_ID" Type="Int32" Nullable="false" />
+          <Property Name="Role" Type="Int32" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BurthDate" Type="DateTime" Precision="0" />
+          <Property Name="PhoneNum" Type="Int64" />
+          <Property Name="PassportNum" Type="Int64" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Role1" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="Route" Relationship="Self.UserOfRoute" FromRole="User" ToRole="Route" />
+          <NavigationProperty Name="Ticket" Relationship="Self.UserOfTicket" FromRole="User" ToRole="Ticket" />
+        </EntityType>
+        <Association Name="FK_Route_City_Destination1">
+          <End Role="City_Destination" Type="Self.City_Destination" Multiplicity="1" />
+          <End Role="Route" Type="Self.Route" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City_Destination">
+              <PropertyRef Name="city_ID" />
+            </Principal>
+            <Dependent Role="Route">
+              <PropertyRef Name="Destination" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Route_City_Source1">
+          <End Role="City_Source" Type="Self.City_Source" Multiplicity="1" />
+          <End Role="Route" Type="Self.Route" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City_Source">
+              <PropertyRef Name="city_ID" />
+            </Principal>
+            <Dependent Role="Route">
+              <PropertyRef Name="Source" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="role_ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ticket_Route">
+          <End Role="Route" Type="Self.Route" Multiplicity="1" />
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Route">
+              <PropertyRef Name="route_ID" />
+            </Principal>
+            <Dependent Role="Ticket">
+              <PropertyRef Name="route_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserOfRoute">
+          <End Role="Route" Type="Self.Route" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+        </Association>
+        <Association Name="UserOfTicket">
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="BusTicketGoEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="City_Destination" EntityType="Self.City_Destination" />
+          <EntitySet Name="City_Source" EntityType="Self.City_Source" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="Route" EntityType="Self.Route" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Ticket" EntityType="Self.Ticket" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="FK_Route_City_Destination1" Association="Self.FK_Route_City_Destination1">
+            <End Role="City_Destination" EntitySet="City_Destination" />
+            <End Role="Route" EntitySet="Route" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Route_City_Source1" Association="Self.FK_Route_City_Source1">
+            <End Role="City_Source" EntitySet="City_Source" />
+            <End Role="Route" EntitySet="Route" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ticket_Route" Association="Self.FK_Ticket_Route">
+            <End Role="Route" EntitySet="Route" />
+            <End Role="Ticket" EntitySet="Ticket" />
+          </AssociationSet>
+          <AssociationSet Name="UserOfRoute" Association="Self.UserOfRoute">
+            <End Role="Route" EntitySet="Route" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="UserOfTicket" Association="Self.UserOfTicket">
+            <End Role="Ticket" EntitySet="Ticket" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище BusTicketGoModelContainer" CdmEntityContainer="BusTicketGoEntities1">
+          <EntitySetMapping Name="City_Destination">
+            <EntityTypeMapping TypeName="BusTicketGoModel.City_Destination">
+              <MappingFragment StoreEntitySet="City_Destination">
+                <ScalarProperty Name="city_ID" ColumnName="city_ID" />
+                <ScalarProperty Name="City" ColumnName="City" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="City_Source">
+            <EntityTypeMapping TypeName="BusTicketGoModel.City_Source">
+              <MappingFragment StoreEntitySet="City_Source">
+                <ScalarProperty Name="city_ID" ColumnName="city_ID" />
+                <ScalarProperty Name="City" ColumnName="City" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="BusTicketGoModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="role_ID" ColumnName="role_ID" />
+                <ScalarProperty Name="Role1" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Route">
+            <EntityTypeMapping TypeName="BusTicketGoModel.Route">
+              <MappingFragment StoreEntitySet="Route">
+                <ScalarProperty Name="route_ID" ColumnName="route_ID" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="Destination" ColumnName="Destination" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Departure_time" ColumnName="Departure_time" />
+                <ScalarProperty Name="Arrival_time" ColumnName="Arrival_time" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="BusTicketGoModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ticket">
+            <EntityTypeMapping TypeName="BusTicketGoModel.Ticket">
+              <MappingFragment StoreEntitySet="Ticket">
+                <ScalarProperty Name="ticket_ID" ColumnName="ticket_ID" />
+                <ScalarProperty Name="route_ID" ColumnName="route_ID" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="BurthDate" ColumnName="BurthDate" />
+                <ScalarProperty Name="PassportNum" ColumnName="PassportNum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="BusTicketGoModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="user_ID" ColumnName="user_ID" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="BurthDate" ColumnName="BurthDate" />
+                <ScalarProperty Name="PhoneNum" ColumnName="PhoneNum" />
+                <ScalarProperty Name="PassportNum" ColumnName="PassportNum" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="UserOfRoute" TypeName="BusTicketGoModel.UserOfRoute" StoreEntitySet="UserOfRoute">
+            <EndProperty Name="Route">
+              <ScalarProperty Name="route_ID" ColumnName="route_ID" />
+            </EndProperty>
+            <EndProperty Name="User">
+              <ScalarProperty Name="user_ID" ColumnName="user_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="UserOfTicket" TypeName="BusTicketGoModel.UserOfTicket" StoreEntitySet="UserOfTicket">
+            <EndProperty Name="Ticket">
+              <ScalarProperty Name="ticket_ID" ColumnName="ticket_ID" />
+            </EndProperty>
+            <EndProperty Name="User">
+              <ScalarProperty Name="user_ID" ColumnName="user_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

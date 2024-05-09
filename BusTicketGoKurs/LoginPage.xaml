@@ -1,0 +1,65 @@
+﻿<Page x:Class="BusTicketGoKurs.LoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BusTicketGoKurs"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="LoginPage">
+
+    <ScrollViewer>
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+
+            <Rectangle HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" Height="294" Width="212" Fill="#FFA0CBFD" RadiusX="25" RadiusY="25"/>
+
+            <StackPanel>
+
+                <StackPanel Height="115" Width="130" Margin="0,15,0,0">
+                    <Label Content="Логин" HorizontalAlignment="Left" Height="30" Width="60" FontSize="16"/>
+                    <TextBox Name="Login" TextWrapping="Wrap" Text="" Width="120" FontSize="16" Height="23"/>
+                    <Label  Content="Пароль" HorizontalAlignment="Left" Height="34" Width="74" FontSize="16"/>
+                    <PasswordBox x:Name="Password" Width="120" Password="" FontSize="16" Height="23"/>
+                </StackPanel>
+
+
+                <Grid>
+                    <Rectangle HorizontalAlignment="Center" VerticalAlignment="Center" Height="107" Stroke="#FF005892" Width="161">
+                        <Rectangle.Fill>
+                            <SolidColorBrush Color="White" Opacity="0.6"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Height="107" Width="140">
+                        <Label Content="CAPTCHA" Height="24" Width="66" FontFamily="Impact"/>
+                        <Button  Click="GenerateRandomSequence" FontSize="12" Height="20" Width="25" Margin="0,0,0,1" Padding="1,1,1,1" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False">
+                            <Button.Background>
+                                <SolidColorBrush Color="#FF238DB1" Opacity="0.982"/>
+                            </Button.Background>
+                            <Button.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform X="-2"/>
+                                </TransformGroup>
+                            </Button.RenderTransform>
+
+                            <StackPanel>
+                                <Image Source="Картинки/icons8-синхронизировать-50.png" Width="24" Height="16" />
+                                <TextBlock Text="Нажми меня" />
+                            </StackPanel>
+
+
+                        </Button>
+                        <TextBox x:Name="CapOut" Height="21" TextWrapping="Wrap" Width="120" Margin="0,5,0,0"/>
+                        <TextBox x:Name="CapIn" Height="20" TextWrapping="Wrap" Width="120" Margin="0,5,0,0"/>
+                    </StackPanel>
+                </Grid>
+
+                <Button Content="Войти" HorizontalAlignment="Center" VerticalAlignment="Top" Click="Button_Click" Background="#FF087A9A" Foreground="White" Height="30" Width="136"/>
+  <!--              <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top"><Hyperlink NavigateUri="RegistrationPage.xaml">Зарегистрироваться</Hyperlink></TextBlock>
+           --> </StackPanel>
+
+        </Grid>
+    </ScrollViewer>
+</Page>

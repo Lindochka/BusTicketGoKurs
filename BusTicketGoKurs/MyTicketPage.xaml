@@ -1,0 +1,37 @@
+﻿<Page x:Class="BusTicketGoKurs.MyTicketPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BusTicketGoKurs"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MyTicketPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="377"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <DataGrid Name="DGridTicket" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№маршрута" Binding="{Binding route_id}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Отправление" Binding="{Binding route_id}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Прибытие" Binding="{Binding route_id}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Дата рождения" Binding="{Binding BurthDate}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Номер паспорта" Binding="{Binding PassportNum}" Width="*"></DataGridTextColumn>
+                <DataGridTemplateColumn Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Информация" Name="BtnBuy" Click="BtnBuy_Click"></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Page>
